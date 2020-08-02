@@ -1,0 +1,60 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://terrain_data/data.hterrain" type="Resource" id=1]
+[ext_resource path="res://addons/zylann.hterrain/hterrain.gd" type="Script" id=2]
+[ext_resource path="res://terrain_tex/dirt_albedo_bump.png" type="Texture" id=3]
+[ext_resource path="res://terrain_tex/dirt_normal_roughness.png" type="Texture" id=4]
+[ext_resource path="res://addons/zylann.hterrain/hterrain_detail_layer.gd" type="Script" id=7]
+[ext_resource path="res://addons/zylann.hterrain/tools/icons/icon_detail_layer_node.svg" type="Texture" id=8]
+[ext_resource path="res://terrain_tex/grass.png" type="Texture" id=10]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 7
+
+[node name="TargetScene" type="Spatial"]
+
+[node name="HTerrain" type="Spatial" parent="."]
+script = ExtResource( 2 )
+collision_enabled = false
+ambient_wind = 0.097
+_terrain_data = ExtResource( 1 )
+chunk_size = 32
+shader_type = "Classic4"
+custom_shader = null
+shader_params/u_ground_uv_scale_per_texture = Plane( 20, 20, 20, 20 )
+shader_params/u_depth_blending = true
+shader_params/u_triplanar = false
+shader_params/u_globalmap_blend_start = null
+shader_params/u_globalmap_blend_distance = null
+shader_params/u_colormap_opacity_per_texture = Plane( 1, 1, 1, 1 )
+ground/albedo_bump_0 = ExtResource( 3 )
+ground/normal_roughness_0 = ExtResource( 4 )
+ground/albedo_bump_1 = null
+ground/normal_roughness_1 = SubResource( 1 )
+ground/albedo_bump_2 = null
+ground/normal_roughness_2 = null
+ground/albedo_bump_3 = null
+ground/normal_roughness_3 = null
+
+[node name="HTerrainDetailLayer" type="Spatial" parent="HTerrain"]
+script = ExtResource( 7 )
+__meta__ = {
+"_editor_icon": ExtResource( 8 )
+}
+layer_index = 0
+texture = ExtResource( 10 )
+view_distance = 100.0
+custom_shader = null
+density = 4.0
+instance_mesh = null
+shader_params/u_globalmap_tint_bottom = null
+shader_params/u_globalmap_tint_top = null
+shader_params/u_bottom_ao = null
+
+[node name="Sun" type="DirectionalLight" parent="."]
+transform = Transform( 1, 0, 0, 0, 0.889863, 0.456228, 0, -0.456228, 0.889863, 0, 0, 0 )
+
+[node name="Camera" type="Camera" parent="."]
+transform = Transform( 0.467124, 0.429313, -0.772972, 0, 0.874213, 0.485542, 0.884192, -0.226808, 0.408366, 208.748, 10.0574, 429.367 )
+projection = 1
+current = true
